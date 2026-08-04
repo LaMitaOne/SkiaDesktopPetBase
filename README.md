@@ -6,8 +6,12 @@ One of the catlings from the SkiaLemmings game project escaped its 2D platformer
            
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LaMitaOne/SkiaDesktopPetBase)      
         
-<img width="180" height="151" alt="Unbenannt" src="https://github.com/user-attachments/assets/ab1181ac-bc42-4311-bb81-133521fc3620" />
-         
+<img width="180" height="151" alt="Unbenannt" src="https://github.com/user-attachments/assets/ab1181ac-bc42-4311-bb81-133521fc3620" />   
+<img width="360" height="202" alt="ay3qao" src="https://github.com/user-attachments/assets/1c1fb0f3-e3de-40a8-8903-6d5edf23675b" />
+ 
+Sample video: https://youtu.be/4ti6VRvX9ck    
+        
+
 SkiaDesktopPetBase is the result. It's a standalone, highly optimized desktop pet that lives on your taskbar, interacts with its environment, and occasionally causes chaos.     
     
 🐾 The escaped Catling:
