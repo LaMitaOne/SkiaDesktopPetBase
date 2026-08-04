@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.531,C:\Users\Lenovo\Downloads\MasterControlProgram\Project2.dproj=C:\Users\Lenovo\Documents\Embarcadero\Studio\Projekte\Project2.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.441,C:\Users\Lenovo\Downloads\MasterControlProgram\Unit1.pas=C:\Users\Lenovo\Downloads\MasterControlProgram\uBassAudioGrabber.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.888,=C:\Users\Lenovo\Downloads\MasterControlProgram\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.549,C:\Users\Lenovo\Downloads\MasterControlProgram\uBassAudioGrabber.pas=</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.679,C:\Users\Lenovo\Downloads\MasterControlProgram\Unit2.dfm=C:\Users\Lenovo\Documents\Embarcadero\Studio\Projekte\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.555,=C:\Users\Lenovo\Documents\Embarcadero\Studio\Projekte\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.426,C:\Users\Lenovo\Downloads\MasterControlProgram\uMasterControlProgram.pas=C:\Users\Lenovo\Documents\Embarcadero\Studio\Projekte\Unit2.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.738,=C:\Users\Lenovo\Documents\Embarcadero\Studio\Projekte\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.679,C:\Users\Lenovo\Downloads\MasterControlProgram\Unit2.pas=C:\Users\Lenovo\Documents\Embarcadero\Studio\Projekte\Unit1.pas</Transaction>
+    <Transaction>2026.08.04 11:44:57.032,C:\Users\Lenovo\Downloads\MasterControlProgram\uSkiaDesktopPetBase.pas=C:\Users\Lenovo\Downloads\MasterControlProgram\uMasterControlProgram.pas</Transaction>
+  </Transactions>
+</BorlandProject>
