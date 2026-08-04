@@ -3,7 +3,9 @@
 🐱💻 While working on skia circlepopup i had an idea :D   
     
 One of the catlings from the SkiaLemmings game project escaped its 2D platformer confinement and decided to take up residence on your Windows Taskbar.    
-   
+           
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/LaMitaOne/SkiaDesktopPetBase)      
+        
 <img width="180" height="151" alt="Unbenannt" src="https://github.com/user-attachments/assets/ab1181ac-bc42-4311-bb81-133521fc3620" />
          
 SkiaDesktopPetBase is the result. It's a standalone, highly optimized desktop pet that lives on your taskbar, interacts with its environment, and occasionally causes chaos.     
