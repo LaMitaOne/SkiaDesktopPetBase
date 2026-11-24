@@ -1,11 +1,31 @@
+{*******************************************************************************
+  Skia-DesktopPetBase;
+********************************************************************************
+  A lightweight, procedural desktop pet overlay rendered via Skia4Delphi.
+*******************************************************************************}
+{ Skia-DesktopPetBase; v0.2                                                    }
+{ by Lara Miriam Tamy Reschke                                                  }
+{                                                                              }
+{------------------------------------------------------------------------------}
+{
+  Latest Changes:
+   v 0.2:
+   - Replaced PNG stream encoding with direct SkImageToBitmap (BGRA8888 + Premul)
+     for zero-overhead DirtyRect UpdateLayeredWindow rendering.
+   v 0.1:
+   - Initial release featuring procedural Skia rendering, state machine AI,
+     DirtyRect optimization, and automatic idle sleep mode.
+}
+
+
 unit uSkiaDesktopPetBase;
 
 interface
 
 uses
   Winapi.Windows, System.SysUtils, System.Classes, System.Types, System.UITypes,
-  System.Math, Vcl.Forms, Vcl.Graphics, Vcl.Imaging.pngimage, Vcl.Dialogs,
-  System.Generics.Collections, Skia;
+  System.Math, Vcl.Forms, Vcl.Graphics, Vcl.Dialogs,
+  System.Generics.Collections, Skia, VCL.Skia;
 
 type
   { Particle record for vomit effects }
@@ -15,10 +35,8 @@ type
     Color: TAlphaColor;
     Size: Single;
   end;
-
   { Available states for the desktop cat's state machine }
   TCatState = (csIdle, csWalking, csFreakOut, csVomiting, csSitting);
-
   { TSkiaDesktopPetBase }
   { A thread-safe, low-CPU desktop pet that uses Skia for high-quality rendering.
     It only redraws the specific screen area (DirtyRect) where the cat is currently active. }
@@ -66,7 +84,6 @@ type
   end;
 
 implementation
-
 { TSkiaDesktopPetBase }
 
 constructor TSkiaDesktopPetBase.Create;
@@ -643,9 +660,9 @@ var
   Canvas: ISkCanvas;
   SkImage: ISkImage;
   MemStream: TMemoryStream;
-  PngImage: TPngImage;
   W, H: Integer;
   ClearRect: TRect;
+  DirtyBmp: TBitmap;
 begin
   if FDirtyRect.IsEmpty then
     Exit;
@@ -655,8 +672,8 @@ begin
   H := FDirtyRect.Height;
   ClearRect := Rect(Max(0, FDirtyRect.Left - 40), Max(0, FDirtyRect.Top - 40), Min(FBuffer.Width, FDirtyRect.Right + 40), Min(FBuffer.Height, FDirtyRect.Bottom + 40));
 
-  // Create a small Skia surface for the dirty area
-  ImgInfo := TSkImageInfo.Create(W, H);
+// Create a small Skia surface for the dirty area (explizit BGRA8888 + Premul!)
+  ImgInfo := TSkImageInfo.Create(W, H, TSkColorType.BGRA8888, TSkAlphaType.Premul);
   Surface := TSkSurface.MakeRaster(ImgInfo);
   if not Assigned(Surface) then
     Exit;
@@ -668,37 +685,24 @@ begin
   DrawToCanvas(Canvas);
   Canvas.Restore;
 
-  // Export the Skia surface to a PNG stream
+  // Export the Skia surface to a temporary VCL Bitmap without PNG roundtrip
   SkImage := Surface.MakeImageSnapshot;
   if Assigned(SkImage) then
   begin
-    MemStream := TMemoryStream.Create;
+    DirtyBmp := SkImageToBitmap(SkImage);
     try
-      if SkImage.EncodeToStream(MemStream, TSkEncodedImageFormat.PNG) then
-      begin
-        if MemStream.Size > 0 then
-        begin
-          MemStream.Position := 0;
-          PngImage := TPngImage.Create;
-          try
-            PngImage.LoadFromStream(MemStream);
-            // Draw the PNG onto the main Windows bitmap buffer
-            FBuffer.Canvas.Lock;
-            try
-              FBuffer.Canvas.Brush.Color := clBlack;
-              FBuffer.Canvas.FillRect(ClearRect); // Clear previous frame
-              FBuffer.Canvas.Draw(FDirtyRect.Left, FDirtyRect.Top, PngImage);
-            finally
-              FBuffer.Canvas.Unlock;
-            end;
-          finally
-            PngImage.Free;
-          end;
-        end;
+      FBuffer.Canvas.Lock;
+      try
+        FBuffer.Canvas.Brush.Color := clBlack;
+        FBuffer.Canvas.FillRect(ClearRect); // Clear previous frame
+        FBuffer.Canvas.Draw(FDirtyRect.Left, FDirtyRect.Top, DirtyBmp);
+      finally
+        FBuffer.Canvas.Unlock;
       end;
     finally
-      MemStream.Free;
+      DirtyBmp.Free;
     end;
+
     // Push the updated buffer area to the Windows Layered Window
     UpdateLayeredWindowFromBitmap(ClearRect);
   end;
