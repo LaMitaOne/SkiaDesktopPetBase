@@ -34,6 +34,15 @@ While the cat is silly, the engine running it is serious about performance:
      Sub-2% CPU Usage: The engine uses a highly aggressive DirtyRect optimization. It only calculates and redraws the exact 60x60 pixel bounding box where the cat currently is. If the cat sits down to rest for more than 3 seconds, the render loop pauses entirely, dropping CPU usage to 0%.    
     
 zipped exe and sample project included   
+     
+  Latest Changes:   
+   v 0.2:     
+   - Replaced PNG stream encoding with direct SkImageToBitmap (BGRA8888 + Premul)  
+     for zero-overhead DirtyRect UpdateLayeredWindow rendering.  
+   v 0.1:   
+   - Initial release featuring procedural Skia rendering, state machine AI,  
+     DirtyRect optimization, and automatic idle sleep mode.   
+   
 
 SkiaLemmings game: https://github.com/LaMitaOne/SkiaLemmings  
      
